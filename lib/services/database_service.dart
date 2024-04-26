@@ -19,12 +19,12 @@ class DatabaseService {
     try {
       var userData = await _firestore.collection('users').doc(userId).get();
       if (userData.exists) {
-        return userData.data();
+        return userData.data()!;
       } else {
-        return null;
+        return {};
       }
     } catch (e) {
-      return e.toString();
+      return {};
     }
   }
 
@@ -41,7 +41,7 @@ class DatabaseService {
     }
   }
 
-  Stream<List<QueryDocumentSnapshot>> getAllArtworks() {
+  Stream<List<DocumentSnapshot>> getAllArtworks() {
     return _firestore.collection('artworks').snapshots().map((snapshot) => snapshot.docs);
   }
 }
